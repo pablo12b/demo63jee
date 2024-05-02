@@ -3,6 +3,7 @@ package ec.edu.ups.ppw63.demo63.services;
 import java.util.List;
 
 import ec.edu.ups.ppw63.demo63.business.GestionClientes;
+import ec.edu.ups.ppw63.demo63.business.GestionClientesLocal;
 import ec.edu.ups.ppw63.demo63.model.Cliente;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -21,7 +22,7 @@ import jakarta.ws.rs.core.Response;
 public class ClienteServices {
 	
 	@Inject
-	private GestionClientes gClientes;
+	private GestionClientesLocal gClientes;
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -67,23 +68,6 @@ public class ClienteServices {
 		}catch (Exception e) {
 			// TODO: handle exception
 			return "Error";
-		}
-	}
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	//@Produces("application/json")
-	public Response leer(@QueryParam("dni") String cedula, @QueryParam("nombre") String nombre) {
-		try{
-			System.out.println("cedula " +  cedula + " nom=" + nombre);
-			Cliente cli = gClientes.getClientePorCedula(cedula);
-			return Response.ok(cli).build();
-		}catch (Exception e) {
-			// TODO: handle exception
-			ErrorMessage error = new ErrorMessage(4, "Cliente no existe");
-			return Response.status(Response.Status.NOT_FOUND)
-					.entity(error)
-					.build();
 		}
 	}
 	

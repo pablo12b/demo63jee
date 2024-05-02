@@ -1,12 +1,16 @@
 package ec.edu.ups.ppw63.demo63.model;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class Cliente {
+public class Cliente implements Serializable {
 
 	@Id
+	
 	private int codigo;
 	private String dni;
 	private String nombre;

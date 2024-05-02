@@ -8,7 +8,7 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 
 @Stateless
-public class GestionClientes {
+public class GestionClientes implements GestionClientesLocal, GestionClientesRemoto {
 	
 	@Inject
 	private ClienteDAO daoCliente;

@@ -95,6 +95,31 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+            	<groupId>jakarta.ejb</groupId>
+            	<artifactId>jakarta.ejb-api</artifactId>
+            	<version>4.0.0</version>
+            	<scope>provided</scope>
+        	</dependency>
+        	<dependency>
+		    <groupId>org.wildfly</groupId>
+		    <artifactId>wildfly-naming-client</artifactId>
+		    <version>1.1.0.Final</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+	        <groupId>org.wildfly.security</groupId>
+	        <artifactId>wildfly-elytron</artifactId>
+	        <version>1.11.2.Final</version> 
+	    </dependency>
+	
+	    <!-- JBoss EJB Client -->
+	    <dependency>
+	        <groupId>org.jboss</groupId>
+	        <artifactId>jboss-ejb-client</artifactId>
+	        <version>4.0.11.Final</version> 
+	    </dependency>
         </dependencies>
     </dependencyManagement>
 	

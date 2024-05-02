@@ -2,8 +2,9 @@ package ec.edu.ups.ppw63.demo63.services;
 
 import java.util.List;
 
-import ec.edu.ups.ppw63.demo63.business.GestionClientes;
+import ec.edu.ups.ppw63.demo63.business.GestionDetalleFacturasLocal;
 import ec.edu.ups.ppw63.demo63.model.Cliente;
+import ec.edu.ups.ppw63.demo63.model.DetalleFactura;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -17,18 +18,18 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("transferencia")
-public class TransferenciaServices {
+@Path("detalles")
+public class DetalleServices {
 	
 	@Inject
-	private GestionClientes gClientes;
+	private GestionDetalleFacturasLocal gDetalles;
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response transferir(Transferencia transferencia) {
+	public Response crear(DetalleFactura detalle) {
 		try{
-			//gClientes.guardarClientes(cliente);
+			gDetalles.guardarDetalles(detalle);
 			ErrorMessage error = new ErrorMessage(1, "OK");
 			return Response.status(Response.Status.CREATED)
 					.entity(error)
@@ -45,10 +46,10 @@ public class TransferenciaServices {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response actualizar(Cliente cliente) {
+	public Response actualizar(DetalleFactura detalle) {
 		try{
-			gClientes.actualizarCliente(cliente);
-			return Response.ok(cliente).build();
+			gDetalles.actualizarDetalle(detalle);
+			return Response.ok(detalle).build();
 		}catch (Exception e) {
 			// TODO: handle exception
 			ErrorMessage error = new ErrorMessage(99, e.getMessage());
@@ -62,7 +63,7 @@ public class TransferenciaServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String borrar(@QueryParam("id") int codigo) {
 		try{
-			gClientes.borrarCliente(codigo);
+			gDetalles.borrarDetalle(codigo);
 			return "OK";
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -72,46 +73,11 @@ public class TransferenciaServices {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	//@Produces("application/json")
-	public Response leer(@QueryParam("dni") String cedula, @QueryParam("nombre") String nombre) {
-		try{
-			System.out.println("cedula " +  cedula + " nom=" + nombre);
-			Cliente cli = gClientes.getClientePorCedula(cedula);
-			return Response.ok(cli).build();
-		}catch (Exception e) {
-			// TODO: handle exception
-			ErrorMessage error = new ErrorMessage(4, "Cliente no existe");
-			return Response.status(Response.Status.NOT_FOUND)
-					.entity(error)
-					.build();
-		}
-	}
-	
-	@GET
-	@Path("{dni}/{nombre}")
-	@Produces(MediaType.APPLICATION_JSON)
-	//@Produces("application/json")
-	public Response leer2(@PathParam("dni") String cedula, @PathParam("nombre") String nombre) {
-		try{
-			System.out.println("cedula " +  cedula + " nom=" + nombre);
-			Cliente cli = gClientes.getClientePorCedula(cedula);
-			return Response.ok(cli).build();
-		}catch (Exception e) {
-			// TODO: handle exception
-			ErrorMessage error = new ErrorMessage(4, "Cliente no existe");
-			return Response.status(Response.Status.NOT_FOUND)
-					.entity(error)
-					.build();
-		}
-	}
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
 	@Path("list")
 	public Response getClientes(){
-		List<Cliente> clientes = gClientes.getClientes();
-		if(clientes.size()>0)
-			return Response.ok(clientes).build();
+		List<DetalleFactura> detalles = gDetalles.getDetalles();
+		if(detalles.size()>0)
+			return Response.ok(detalles).build();
 		
 		ErrorMessage error = new ErrorMessage(6, "No se registran clientes");
 		return Response.status(Response.Status.NOT_FOUND)

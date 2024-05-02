@@ -12,7 +12,7 @@ import jakarta.persistence.Query;
 public class ClienteDAO {
 
 	@PersistenceContext
-	private EntityManager em;
+	public EntityManager em;
 	
 	public void insert(Cliente cliente) {
 		em.persist(cliente);

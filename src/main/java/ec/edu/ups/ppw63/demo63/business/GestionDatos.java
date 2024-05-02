@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import ec.edu.ups.ppw63.demo63.dao.ClienteDAO;
+import ec.edu.ups.ppw63.demo63.dao.DetalleDAO;
 import ec.edu.ups.ppw63.demo63.dao.FacturaDAO;
 import ec.edu.ups.ppw63.demo63.model.CantidadFacturasCliente;
 import ec.edu.ups.ppw63.demo63.model.Cliente;
@@ -22,7 +23,7 @@ public class GestionDatos {
 	private ClienteDAO daoCliente;
 	
 	@Inject
-	private FacturaDAO daoFactura;
+	private DetalleDAO daoDetalle;
 	
 	@PostConstruct
 	public void init() {
@@ -67,24 +68,6 @@ public class GestionDatos {
 		factura.addDetalle(det);
 		
 		
-		daoFactura.insert(factura);
-		/*System.out.println("\n------------- Clientes");
-		List<Cliente> list = daoCliente.getAll();
-		for (Cliente cli: list) {
-			System.out.println(cli.getCodigo() + "\t" + cli.getNombre());
-		}*/
-		System.out.println("\n------------- Facturas2");
-		List<Factura> list2 = daoFactura.getAll();
-		for (Factura fac: list2) {
-			System.out.println(fac);
-		}
-		
-		
-		System.out.println("\n------------- Cantidad FActuras");
-		List<CantidadFacturasCliente> list3 = daoFactura.getTotalFacturas();
-		for (CantidadFacturasCliente fac: list3) {
-			System.out.println(fac);
-		}
 		
 	}
 }
