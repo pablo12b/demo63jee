@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 public class Cliente implements Serializable {
 
 	@Id
-	
 	private int codigo;
 	private String dni;
 	private String nombre;
