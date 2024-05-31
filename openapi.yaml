@@ -1,0 +1,187 @@
+openapi: 3.0.3
+info:
+  title: Clientes API
+  description: API para la gestión de clientes.
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: pablobybravo@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/demo63/rs
+tags:
+  - name: Clientes
+    description: Todo sobre clientes
+paths:
+  /clientes:
+    post:
+      tags:
+        - Clientes
+      summary: Crear un nuevo cliente
+      description: Crear un nuevo cliente en la base de datos.
+      operationId: crearCliente
+      requestBody:
+        description: Datos del cliente a crear
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '400':
+          description: Error al guardar el cliente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+    put:
+      tags:
+        - Clientes
+      summary: Actualizar un cliente existente
+      description: Actualizar los datos de un cliente existente en la base de datos.
+      operationId: actualizarCliente
+      requestBody:
+        description: Datos del cliente a actualizar
+        required: true
+        content:
+          application/json:
+            schema:
+                   $ref: '#/components/schemas/ClientePut'
+                   
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '406':
+          description: Error al actualizar el cliente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+    delete:
+      tags:
+        - Clientes
+      summary: Borrar un cliente
+      description: Borrar un cliente de la base de datos.
+      operationId: borrarCliente
+      parameters:
+        - name: dni
+          in: query
+          description: ID del cliente a borrar
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Error al borrar el cliente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+  /clientes/list:
+    get:
+      tags:
+        - Clientes
+      summary: Obtener todos los clientees
+      description: Obtener todos los Clientes
+      operationId: leerClientePorPlaca
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '404':
+          description: cliente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+  /clientes/{dni}:
+    get:
+      tags:
+        - Clientes
+      summary: Obtener un cliente por su codigo.
+      description: Obtener los datos de un cliente por su codigo.
+      operationId: leerClientePorCodigo
+      parameters:
+        - name: dni
+          in: path
+          description: DNI del cliente a obtener
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cliente'
+        '404':
+          description: cliente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+components:
+  schemas:
+    Cliente:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          example: 1
+        dni:
+          type: string
+          example: '0107956088'
+        nombre:
+          type: string
+          example: 'Pablo'
+        direccion:
+          type: string
+          example: 'Av. 24 de Mayo'
+          
+    ClientePut:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+          example: 1
+        dni:
+          type: string
+          example: '0107956088'
+        nombre:
+          type: string
+          example: 'Pablo'
+        direccion:
+          type: string
+          example: 'Av. 24 de Mayo'
+        
+    ErrorMessage:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

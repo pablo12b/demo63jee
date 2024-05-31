@@ -22,14 +22,14 @@ import jakarta.ws.rs.core.Response;
 public class ClienteServices {
 	
 	@Inject
-	private GestionClientesLocal gClientes;
+	private GestionClientes gClientes;
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response crear(Cliente cliente) {
 		try{
-			gClientes.guardarClientes(cliente);
+			gClientes.guardar(cliente);
 			ErrorMessage error = new ErrorMessage(1, "OK");
 			return Response.status(Response.Status.CREATED)
 					.entity(error)
@@ -48,7 +48,7 @@ public class ClienteServices {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response actualizar(Cliente cliente) {
 		try{
-			gClientes.actualizarCliente(cliente);
+			gClientes.actualizar(cliente);
 			return Response.ok(cliente).build();
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -61,9 +61,9 @@ public class ClienteServices {
 	
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
-	public String borrar(@QueryParam("id") int codigo) {
+	public String borrar(@QueryParam("dni") String dni) {
 		try{
-			gClientes.borrarCliente(codigo);
+			gClientes.borrar(dni);
 			return "OK";
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -72,13 +72,13 @@ public class ClienteServices {
 	}
 	
 	@GET
-	@Path("{dni}/{nombre}")
+	@Path("{dni}")
 	@Produces(MediaType.APPLICATION_JSON)
 	//@Produces("application/json")
-	public Response leer2(@PathParam("dni") String cedula, @PathParam("nombre") String nombre) {
+	public Response leer2(@PathParam("dni") String dni) {
 		try{
-			System.out.println("cedula " +  cedula + " nom=" + nombre);
-			Cliente cli = gClientes.getClientePorCedula(cedula);
+			System.out.println("dni " +  dni);
+			Cliente cli = gClientes.getClientePorDNI(dni);
 			return Response.ok(cli).build();
 		}catch (Exception e) {
 			// TODO: handle exception
