@@ -2,7 +2,7 @@ version: '16'
 
 services:
   postgres:
-    image: postgres:16
+    image: postgres
     restart: always
     container_name: baseDeDatos
     hostname: baseDeDatos

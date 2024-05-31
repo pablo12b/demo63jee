@@ -4,9 +4,6 @@ FROM quay.io/wildfly/wildfly:30.0.1.Final-jdk17
 # Copiar el archivo de configuración de WildFly
 COPY standalone-microprofile-jaeger.xml /opt/jboss/wildfly/standalone/configuration/
 
-# Copiar la aplicación WAR al directorio de despliegues de WildFly
-
-
 # Crear usuario de WildFly
 RUN /opt/jboss/wildfly/bin/add-user.sh andres andres --silent
 
@@ -47,6 +44,7 @@ RUN echo "Starting WildFly server" && \
       rm -rf $JBOSS_HOME/standalone/configuration/standalone_xml_history/ $JBOSS_HOME/standalone/log/* && \
       rm -f /tmp/*.jar
 
+# Copiar la aplicación WAR al directorio de despliegues de WildFly
 COPY target/demo63.war ${DEPLOYMENT_DIR}
 
 # Exponer los puertos necesarios
