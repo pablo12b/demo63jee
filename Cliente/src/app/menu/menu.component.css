@@ -1,0 +1,35 @@
+/* Añade estos estilos a tu hoja de estilos CSS */
+
+nav {
+    text-align: center; /* Centrar el menú horizontalmente */
+    margin-bottom: 20px; /* Añadir un poco de espacio debajo del menú */
+  }
+  
+  nav ul {
+    list-style-type: none; /* Remover los estilos por defecto de la lista */
+    padding: 0; /* Remover el padding por defecto */
+    margin: 0; /* Remover el margin por defecto */
+  }
+  
+  nav li {
+    display: inline; /* Colocar los elementos de la lista en línea */
+    margin-right: 20px; /* Espacio entre opciones del menú */
+  }
+  
+  nav a {
+    text-decoration: none; /* Remover el subrayado de los enlaces */
+    color: #333; /* Color de texto para los enlaces */
+    font-size: 18px; /* Tamaño del texto para los enlaces */
+    transition: color 0.3s ease; /* Transición suave de color */
+  }
+  
+  nav a:hover, nav a:focus {
+    color: #eab37f; /* Cambiar el color de texto cuando se pasa el cursor */
+    border-bottom: 2px solid #eab37f; /* Añadir un subrayado al pasar el cursor */
+  }
+  
+  /* Resaltar el enlace de la página actual */
+  nav a.active {
+    color: #eab37f;
+    border-bottom: 2px solid #eab37f;
+  }

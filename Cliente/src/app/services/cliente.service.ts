@@ -8,27 +8,21 @@ import { Cliente } from '../enviroment/Cliente';
 })
 export class ClienteService {
 
-  private apiUrl = 'http://localhost:8080/demo63/rs/clientes'; 
-
   constructor(private http: HttpClient) {}
 
-  getClientes(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(this.apiUrl + '/list');
+  getClientes() {
+    return this.http.get(`http://localhost:8080/demo63/rest/clientes/list`);
   }
 
-  getCliente(codigo: number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.apiUrl}/${codigo}`);
+  agregarCliente(cliente: Cliente) {
+    return this.http.post(`http://localhost:8080/demo63/rest/clientes`, cliente);
   }
 
-  agregarCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.apiUrl, cliente);
+  actualizarCliente(cliente: Cliente) {
+    return this.http.put(`http://localhost:8080/demo63/rest/clientes`, cliente);
   }
 
-  actualizarCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(`${this.apiUrl}`, cliente);
-  }
-
-  borrarCliente(codigo: number | undefined): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${codigo}`);
+  borrarCliente(dni: String | undefined) {
+    return this.http.delete(`http://localhost:8080/demo63/rest/clientes/${dni}`);
   }
 }

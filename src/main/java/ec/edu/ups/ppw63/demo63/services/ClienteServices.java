@@ -37,9 +37,7 @@ public class ClienteServices {
 		}catch (Exception e) {
 			// TODO: handle exception
 			ErrorMessage error = new ErrorMessage(99, e.getMessage());
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-					.entity(error)
-					.build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(error).build();
 		}
 	}
 	
@@ -53,9 +51,7 @@ public class ClienteServices {
 		}catch (Exception e) {
 			// TODO: handle exception
 			ErrorMessage error = new ErrorMessage(99, e.getMessage());
-			return Response.status(Response.Status.NOT_FOUND)
-					.entity(error)
-					.build();
+			return Response.status(Response.Status.NOT_FOUND).entity(error).build();
 		}
 	}
 	
@@ -66,26 +62,7 @@ public class ClienteServices {
 			gClientes.borrar(dni);
 			return "OK";
 		}catch (Exception e) {
-			// TODO: handle exception
 			return "Error";
-		}
-	}
-	
-	@GET
-	@Path("{dni}")
-	@Produces(MediaType.APPLICATION_JSON)
-	//@Produces("application/json")
-	public Response leer2(@PathParam("dni") String dni) {
-		try{
-			System.out.println("dni " +  dni);
-			Cliente cli = gClientes.getClientePorDNI(dni);
-			return Response.ok(cli).build();
-		}catch (Exception e) {
-			// TODO: handle exception
-			ErrorMessage error = new ErrorMessage(4, "Cliente no existe");
-			return Response.status(Response.Status.NOT_FOUND)
-					.entity(error)
-					.build();
 		}
 	}
 	
@@ -96,12 +73,8 @@ public class ClienteServices {
 		List<Cliente> clientes = gClientes.getClientes();
 		if(clientes.size()>0)
 			return Response.ok(clientes).build();
-		
 		ErrorMessage error = new ErrorMessage(6, "No se registran clientes");
-		return Response.status(Response.Status.NOT_FOUND)
-				.entity(error)
-				.build();
-		
+		return Response.status(Response.Status.NOT_FOUND).entity(error).build();
 	}
 
 }

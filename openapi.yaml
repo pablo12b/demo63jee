@@ -10,7 +10,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-  - url: http://localhost:8080/demo63/rs
+  - url: http://localhost:8080/demo63/rest
 tags:
   - name: Clientes
     description: Todo sobre clientes
@@ -54,8 +54,7 @@ paths:
         content:
           application/json:
             schema:
-                   $ref: '#/components/schemas/ClientePut'
-                   
+              $ref: '#/components/schemas/ClientePut'
       responses:
         '200':
           description: Operación exitosa
@@ -72,13 +71,13 @@ paths:
     delete:
       tags:
         - Clientes
-      summary: Borrar un cliente
+      summary: Borrar un cliente por DNI
       description: Borrar un cliente de la base de datos.
       operationId: borrarCliente
       parameters:
         - name: dni
-          in: query
-          description: ID del cliente a borrar
+          in: path
+          description: DNI del cliente a borrar
           required: true
           schema:
             type: string
@@ -95,53 +94,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+
   /clientes/list:
     get:
       tags:
         - Clientes
-      summary: Obtener todos los clientees
-      description: Obtener todos los Clientes
-      operationId: leerClientePorPlaca
+      summary: Obtener todos los clientes
+      description: Obtener todos los clientes
+      operationId: obtenerTodosLosClientes
       responses:
         '200':
           description: Operación exitosa
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Cliente'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cliente'
         '404':
-          description: cliente no encontrado
+          description: Clientes no encontrados
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
-  /clientes/{dni}:
-    get:
-      tags:
-        - Clientes
-      summary: Obtener un cliente por su codigo.
-      description: Obtener los datos de un cliente por su codigo.
-      operationId: leerClientePorCodigo
-      parameters:
-        - name: dni
-          in: path
-          description: DNI del cliente a obtener
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: Operación exitosa
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Cliente'
-        '404':
-          description: cliente no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorMessage'
+
 components:
   schemas:
     Cliente:

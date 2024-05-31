@@ -1,0 +1,15 @@
+<div>
+  <label for="codigo">ID:</label>
+    <input type="number" id="codigo" name="codigo" [(ngModel)]="cliente.codigo"><br><br>
+    
+    <label for="dni">DNI:</label>
+    <input type="text" id="dni" name="dni" [(ngModel)]="cliente.dni"><br><br>
+  
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" [(ngModel)]="cliente.nombre"><br><br>
+  
+    <label for="direccion">Direccion:</label>
+    <input type="text" id="direccion" name="direccion" [(ngModel)]="cliente.direccion"><br><br>
+
+  <button (click)="enviarUsuario()">Enviar Usuario</button>
+</div>

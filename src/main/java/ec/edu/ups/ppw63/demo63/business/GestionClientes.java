@@ -46,23 +46,6 @@ public class GestionClientes {
 		}
 	}
 	
-	public Cliente getClientePorDNI(String dni) throws Exception {
-		Cliente clientes = daoCliente.getClientePorCedula(dni);
-		Span span = tracer.buildSpan("getAuto").start();
-		try (Scope scope = tracer.scopeManager().activate(span)) {
-			if (clientes != null) {
-				return clientes;
-			} else {
-				return null;
-			}
-		} catch (Exception e) {
-			span.log(e.getMessage());
-			throw e;
-		} finally {
-			span.finish();
-		}
-	}
-	
 	public void borrar(String dni) {
 		Span span = tracer.buildSpan("eliminar").start();
 		try {
