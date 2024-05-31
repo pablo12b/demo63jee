@@ -32,20 +32,24 @@ public class GestionClientes {
 	}
 	
 	public void actualizar(Cliente cliente) {
-		Cliente clientes = daoCliente.getClientePorCedula(cliente.getDni());
-		Span span = tracer.buildSpan("actualizar").start();
-		try (Scope scope = tracer.scopeManager().activate(span)) {
-			if (clientes != null) {
-				daoCliente.update(clientes);
-			} else {
-				System.out.println("Algo esta mal mi loco");
-			}
-		} catch (Exception e) {
-			span.log(e.getMessage());
-			throw e;
-		} finally {
-			span.finish();
-		}
+	    Cliente clientes = daoCliente.getClientePorCedula(cliente.getDni());
+	    Span span = tracer.buildSpan("actualizar").start();
+	    try (Scope scope = tracer.scopeManager().activate(span)) {
+	        if (clientes != null) {
+	            clientes.setNombre(cliente.getNombre());
+	            clientes.setDireccion(cliente.getDireccion());
+	            // Agregar cualquier otro campo que necesite ser actualizado aquí
+
+	            daoCliente.update(clientes);
+	        } else {
+	            System.out.println("Cliente no encontrado");
+	        }
+	    } catch (Exception e) {
+	        span.log(e.getMessage());
+	        throw e;
+	    } finally {
+	        span.finish();
+	    }
 	}
 	
 	public void borrar(String dni) {

@@ -23,6 +23,6 @@ export class ClienteService {
   }
 
   borrarCliente(dni: String | undefined) {
-    return this.http.delete(`http://localhost:8080/demo63/rest/clientes/${dni}`);
+    return this.http.delete(`http://localhost:8080/demo63/rest/clientes?dni=` + dni);
   }
 }

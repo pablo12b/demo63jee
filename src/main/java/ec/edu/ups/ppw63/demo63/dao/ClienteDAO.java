@@ -15,7 +15,7 @@ public class ClienteDAO {
 	public EntityManager em;
 	
 	public void insert(Cliente cliente) {
-		em.persist(cliente);
+		em.merge(cliente);
 	}
 	
 	public void update(Cliente cliente) {
