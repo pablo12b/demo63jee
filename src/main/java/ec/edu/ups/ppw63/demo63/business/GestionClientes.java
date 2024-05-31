@@ -37,6 +37,8 @@ public class GestionClientes {
 		try (Scope scope = tracer.scopeManager().activate(span)) {
 			if (clientes != null) {
 				daoCliente.update(clientes);
+			} else {
+				System.out.println("Algo esta mal mi loco");
 			}
 		} catch (Exception e) {
 			span.log(e.getMessage());
@@ -47,9 +49,9 @@ public class GestionClientes {
 	}
 	
 	public void borrar(String dni) {
+		Cliente clientes = daoCliente.getClientePorCedula(dni);
 		Span span = tracer.buildSpan("eliminar").start();
 		try {
-			Cliente clientes = daoCliente.getClientePorCedula(dni);
 			try (Scope scope = tracer.scopeManager().activate(span)) {
 				if (clientes != null) {
 					daoCliente.remove(clientes.getCodigo());

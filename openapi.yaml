@@ -12,13 +12,13 @@ info:
 servers:
   - url: http://localhost:8080/demo63/rest
 tags:
-  - name: Clientes
+  - name: clientes
     description: Todo sobre clientes
 paths:
   /clientes:
     post:
       tags:
-        - Clientes
+        - clientes
       summary: Crear un nuevo cliente
       description: Crear un nuevo cliente en la base de datos.
       operationId: crearCliente
@@ -29,7 +29,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Cliente'
-      responses:
+        responses:
         '200':
           description: Operación exitosa
           content:
@@ -44,7 +44,7 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
     put:
       tags:
-        - Clientes
+        - clientes
       summary: Actualizar un cliente existente
       description: Actualizar los datos de un cliente existente en la base de datos.
       operationId: actualizarCliente
@@ -55,7 +55,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ClientePut'
-      responses:
+        responses:
         '200':
           description: Operación exitosa
           content:
@@ -70,14 +70,14 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
     delete:
       tags:
-        - Clientes
+        - clientes
       summary: Borrar un cliente por DNI
       description: Borrar un cliente de la base de datos.
       operationId: borrarCliente
       parameters:
         - name: dni
-          in: path
-          description: DNI del cliente a borrar
+          in: query
+          description: ID del automóvil a borrar
           required: true
           schema:
             type: string
@@ -95,10 +95,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
 
+
   /clientes/list:
     get:
       tags:
-        - Clientes
+        - clientes
       summary: Obtener todos los clientes
       description: Obtener todos los clientes
       operationId: obtenerTodosLosClientes
@@ -148,7 +149,7 @@ components:
           example: '0107956088'
         nombre:
           type: string
-          example: 'Pablo'
+          example: 'Gato'
         direccion:
           type: string
           example: 'Av. 24 de Mayo'

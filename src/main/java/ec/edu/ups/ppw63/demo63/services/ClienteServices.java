@@ -31,9 +31,7 @@ public class ClienteServices {
 		try{
 			gClientes.guardar(cliente);
 			ErrorMessage error = new ErrorMessage(1, "OK");
-			return Response.status(Response.Status.CREATED)
-					.entity(error)
-					.build();
+			return Response.status(Response.Status.CREATED).entity(error).build();
 		}catch (Exception e) {
 			// TODO: handle exception
 			ErrorMessage error = new ErrorMessage(99, e.getMessage());
@@ -57,13 +55,15 @@ public class ClienteServices {
 	
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
-	public String borrar(@QueryParam("dni") String dni) {
-		try{
-			gClientes.borrar(dni);
-			return "OK";
-		}catch (Exception e) {
-			return "Error";
-		}
+	public Response borrar(@QueryParam("dni") String dni) {
+	    try {
+	        gClientes.borrar(dni);
+	        ErrorMessage error = new ErrorMessage(1, "OK");
+	        return Response.ok(error).build();
+	    } catch (Exception e) {
+	        ErrorMessage error = new ErrorMessage(99, e.getMessage());
+	        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(error).build();
+	    }
 	}
 	
 	@GET
